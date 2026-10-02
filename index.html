@@ -69,7 +69,8 @@
     <p>O Git é um sistema de controle de versão distribuído. Em vez de criar cópias manuais como <em>projeto_final</em>,
         <em>projeto_final_agora_vai</em> e <em>projeto_final_v3</em>, o projeto mantém um histórico de registros
         chamados <strong>commits</strong>. Esse histórico ajuda a entender o desenvolvimento e facilita a colaboração,
-        desde que as alterações sejam organizadas e revisadas corretamente.</p>
+        desde que as alterações sejam organizadas e revisadas corretamente.
+    </p>
 
     <h2>1. Instalando o Git</h2>
     <p>O Git precisa estar instalado no computador para que os comandos estejam disponíveis no terminal. No Windows,
@@ -116,7 +117,8 @@ git config --global user.email</code></pre>
     <h2>5. A área de preparação: <em>Staging Area</em></h2>
     <p>O Git separa as alterações em etapas. A <strong>área de preparação</strong>, também chamada de <em>stage</em> ou
         <em>index</em>, permite selecionar o que entrará no próximo commit. Pense nela como uma caixa na qual são
-        colocadas as alterações que serão registradas juntas.</p>
+        colocadas as alterações que serão registradas juntas.
+    </p>
     <p>Para adicionar um arquivo específico à área de preparação:</p>
     <pre><code>git add index.html</code></pre>
     <p>Para adicionar arquivos novos e modificados do diretório atual e de seus subdiretórios:</p>
@@ -179,7 +181,8 @@ git config --global user.email</code></pre>
     <p>O comando <code>git diff</code>, sem opções adicionais, mostra as diferenças entre as alterações atuais ainda não
         preparadas e a versão que está na área de preparação. Se as alterações ainda não foram preparadas com
         <code>git add</code>, o comando normalmente mostra o que mudou em relação ao conteúdo preparado — que, nesse
-        caso, corresponde ao último commit.</p>
+        caso, corresponde ao último commit.
+    </p>
     <p>Na saída do <code>git diff</code>, observe os sinais no início das linhas:</p>
     <ul>
         <li><code>-</code> indica uma linha removida da versão comparada.</li>
@@ -249,6 +252,105 @@ git log --oneline</code></pre>
         com <code>git diff</code>, preparar o que deve ser registrado, revisar com <code>git diff --staged</code> e
         então criar o commit. Esse processo torna o histórico mais compreensível e reduz o risco de registrar alterações
         indesejadas.</p>
+
+    <h2>13. Documentando o projeto: <code>README.md</code></h2>
+    <p>Até aqui, o projeto contém uma página HTML e um histórico de versões. Agora vamos adicionar dois arquivos comuns
+        em projetos de desenvolvimento: o <code>README.md</code> e o <code>.gitignore</code>. Crie os arquivos na mesma
+        pasta em que está o <code>index.html</code>, dentro do repositório Git.</p>
+
+    <h3>O que é o README?</h3>
+    <p>O arquivo <code>README.md</code> é a apresentação e a documentação inicial do projeto. Ele explica, por exemplo,
+        qual é o objetivo do projeto, quais arquivos fazem parte dele, como abrir ou executar o conteúdo e quais
+        ferramentas são necessárias. A extensão <code>.md</code> significa Markdown, um formato de texto simples que
+        permite criar títulos, listas, links e trechos de código.</p>
+    <p>Crie um arquivo chamado <code>README.md</code> e escreva um conteúdo semelhante ao exemplo abaixo. Adapte o texto
+        ao projeto que está sendo desenvolvido.</p>
+    <pre><code># Projeto de Página Web
+
+## Objetivo
+Projeto de estudo para praticar HTML e aprender os fundamentos do Git.
+
+## Arquivos
+- index.html: página web principal.
+- README.md: documentação e apresentação do projeto.
+- .gitignore: lista de arquivos que o Git deve ignorar.
+
+## Como visualizar
+Abra o arquivo index.html em um navegador.</code></pre>
+    <p>Salve o arquivo. O README ajuda outra pessoa — ou você mesmo no futuro — a entender rapidamente o propósito do
+        projeto, sem precisar analisar todos os arquivos primeiro.</p>
+
+    <h2>14. O que é o <code>.gitignore</code>?</h2>
+    <p>O arquivo <code>.gitignore</code> informa ao Git quais arquivos ou pastas devem ser ignorados quando ainda não
+        estão sendo rastreados pelo repositório. Ele é útil para evitar que arquivos temporários, cache, configurações
+        locais, dependências instaladas ou informações privadas sejam adicionados por engano ao histórico.</p>
+    <p>Crie um arquivo chamado exatamente <code>.gitignore</code>, sem extensão adicional. Em alguns editores do
+        Windows, confira se o nome não foi salvo acidentalmente como <code>.gitignore.txt</code>.</p>
+
+    <h3>Exercício: ignorando o README para observar o comportamento do Git</h3>
+    <p>Para demonstrar como as regras funcionam, adicione temporariamente a seguinte linha ao arquivo
+        <code>.gitignore</code>:</p>
+    <pre><code>README.md</code></pre>
+    <p>Essa regra pede ao Git para ignorar um arquivo com esse nome. Salve o <code>.gitignore</code> e execute:</p>
+    <pre><code>git status</code></pre>
+    <p>Observe que o <code>README.md</code> pode não aparecer como arquivo não rastreado, enquanto o
+        <code>.gitignore</code> deverá aparecer como novo arquivo. Para confirmar qual regra está fazendo o Git ignorar
+        o README, execute:</p>
+    <pre><code>git check-ignore -v README.md</code></pre>
+    <p>O comando apresenta o arquivo de regras e a linha responsável por ignorar o README.</p>
+
+    <h3>Observação importante: normalmente, não ignoramos o README</h3>
+    <p><strong>Esta regra é apenas um exercício de demonstração.</strong> Em projetos reais, normalmente queremos
+        versionar o <code>README.md</code>, porque a documentação deve acompanhar o código e ficar disponível para quem
+        acessar o repositório. O <code>.gitignore</code> costuma ser usado para outros arquivos, como os exemplos
+        abaixo:</p>
+    <pre><code># Arquivos temporários do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Cache e arquivos temporários do Python
+__pycache__/
+*.py[cod]
+
+# Ambientes virtuais Python
+.venv/
+venv/
+
+# Arquivos locais de configuração com segredos
+.env</code></pre>
+    <p>Esses exemplos são comuns em diferentes tipos de projeto, mas o conteúdo ideal depende das linguagens,
+        ferramentas e arquivos realmente usados. Não adicione uma regra só porque ela aparece em um exemplo: entenda
+        primeiro o que ela ignora.</p>
+
+    <h3>Removendo a regra de demonstração</h3>
+    <p>Como queremos manter a documentação no histórico deste projeto, abra o <code>.gitignore</code> e remova a linha
+        <code>README.md</code>. Você pode manter as outras regras que fizerem sentido para o projeto. Salve o arquivo e
+        execute novamente:</p>
+    <pre><code>git status</code></pre>
+    <p>Agora o <code>README.md</code> deverá aparecer como arquivo não rastreado, desde que ainda não tenha sido
+        adicionado a um commit. Se ele continuar ignorado, confira se existe outra regra aplicável no próprio
+        <code>.gitignore</code>, em regras globais ou em outro arquivo de exclusão.</p>
+
+    <h2>15. Preparando e registrando os novos arquivos</h2>
+    <p>Antes de preparar os arquivos, confira o estado do repositório. Depois, adicione o README e o .gitignore à área
+        de preparação e examine o que será registrado:</p>
+    <pre><code>git status
+git add README.md .gitignore
+git status
+git diff --staged</code></pre>
+    <p>Leia a saída de <code>git diff --staged</code>. Verifique se o README contém a documentação pretendida e se o
+        .gitignore contém apenas regras adequadas. Se a saída estiver aberta em um paginador, pressione <code>q</code>
+        para sair. Se precisar imprimir a saída diretamente no terminal, use <code>git --no-pager diff --staged</code>.
+    </p>
+    <p>Quando a revisão estiver concluída, registre os arquivos em um commit:</p>
+    <pre><code>git commit -m "Adiciona documentação e regras de arquivos ignorados"</code></pre>
+    <p>Por fim, confira se o repositório está limpo e consulte o histórico:</p>
+    <pre><code>git status
+git log --oneline</code></pre>
+    <p>O objetivo desta etapa é praticar a documentação do projeto, compreender como o Git ignora arquivos e revisar as
+        alterações antes de registrá-las. O README normalmente deve ser versionado; o .gitignore serve para evitar que
+        arquivos que não devem fazer parte do histórico sejam adicionados por engano.</p>
+
 </body>
 
 </html>
