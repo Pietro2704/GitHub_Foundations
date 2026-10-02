@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Git e GitHub - Primeiros Passos</title>
+</head>
+<body>
+    <h1>Introdução ao Controle de Versão e ao Git</h1>
+    <p>Bem-vindo ao mundo do versionamento de código! Imagine o Git como uma "máquina do tempo" superpoderosa para os seus projetos. Em vez de criar pastas confusas como <em>projeto_final</em>, <em>projeto_final_agora_vai</em> e <em>projeto_final_v3</em>, o Git registra cada alteração que você faz no código de forma estruturada. Ele permite que você trabalhe em equipe sem sobrescrever o trabalho do colega, reverta erros com facilidade e mantenha um histórico limpo e profissional da evolução da sua aplicação.</p>
+
+    <h2>Instalando o Git</h2>
+    <p>Para começar nossa jornada, precisamos ter a ferramenta instalada na sua máquina. O processo é bem simples: baixe o instalador oficial de acordo com o seu sistema operacional. Durante a instalação no Windows, você pode deixar as dezenas de opções padrão marcadas (o famoso "Next, Next, Finish"). Elas são perfeitamente adequadas para quem está começando.</p>
+    <a href="https://git-scm.com/install/" target="_blank" rel="noopener noreferrer">Acessar página oficial de download do Git</a>
+
+    <h2>Configurando Nome e E-mail: A Sua Assinatura</h2>
+    <p>Antes de começarmos a salvar as versões do nosso código, o Git precisa saber <strong>quem</strong> está fazendo as alterações. Cada "salvamento" (que chamaremos de <em>commit</em>) leva uma assinatura digital.</p>
+    <p><strong>Qual nome e e-mail devo usar?</strong> Utilize seu nome profissional e, o mais importante, o <strong>mesmo e-mail que você usa (ou vai usar) para criar sua conta no GitHub</strong>. Isso é fundamental para que, no futuro, quando enviarmos nosso código para a nuvem, o GitHub consiga vincular o seu trabalho ao seu perfil público perfeitamente.</p>
+    <p>Abra o seu terminal e digite os comandos abaixo, substituindo pelos seus dados reais:</p>
+
+    <ol>
+        <li><code>git config --global user.name "Seu Nome Completo"</code></li>
+        <li><code>git config --global user.email "seu.email@exemplo.com.br"</code></li>
+    </ol>
+
+    <h2>Colocando a Mão na Massa: Criando um Projeto</h2>
+    <p>Vamos para um cenário do mundo real: você foi contratado para criar uma nova página web e precisa garantir que todo o desenvolvimento front-end seja versionado com as melhores práticas da indústria desde a primeira linha de código.</p>
+
+    <h3>Iniciando a Pasta do Projeto</h3>
+    <p>O primeiro passo é criar uma pasta comum no seu computador para abrigar o projeto. Dentro dela, crie um arquivo chamado <code>index.html</code> (pode deixá-lo vazio por enquanto). Agora, abra o terminal apontando para dentro dessa pasta.</p>
+    <p>Para transformar essa pasta comum em um repositório Git (ou seja, ligar o "radar" do Git nela), utilizamos nosso primeiro comando oficial. Ele criará uma estrutura oculta (a pasta <em>.git</em>) que passará a monitorar todas as suas edições:</p>
+    <p><strong>Comando:</strong> <em><code>git init</code></em></p>
+
+    <h2>O Radar do Git: <code>git status</code></h2>
+    <p>Com o nosso repositório criado, você precisa conhecer uma ferramenta que será sua melhor amiga: o comando <strong>status</strong>. Pense nele como o "radar" ou a "lupa" do Git. Sempre que você estiver em dúvida sobre o que foi alterado, o que já está salvo ou o que falta salvar, basta perguntar ao radar.</p>
+    <p><strong>Comando:</strong> <em><code>git status</code></em></p>
+    <p>Se você rodar esse comando agora, o Git vai avisar (geralmente em texto vermelho) que encontrou o arquivo <code>index.html</code>, mas que ainda não está rastreando as mudanças dele. Para mudar isso, precisamos entender um conceito fundamental.</p>
+
+    <h2>A Zona de Preparação (O famoso "Stage")</h2>
+    <p>Diferente de salvar um arquivo no Word, o Git não salva tudo de uma vez automaticamente. Ele usa uma área intermediária chamada <strong>Staging Area</strong> (ou simplesmente Stage). Pense no Stage como uma <em>caixa de papelão aberta</em> em cima da sua mesa.</p>
+    <p>Você pode ir colocando os arquivos que alterou dentro dessa caixa aos poucos, organizando o que faz sentido ser salvo junto. O Git só vai registrar definitivamente na "máquina do tempo" os arquivos que estiverem dentro dessa caixa no momento em que você decidir fechá-la.</p>
+
+    <h3>Colocando arquivos na caixa: <code>git add</code></h3>
+    <p>Para avisar o Git que você quer colocar o nosso novo arquivo na zona de preparação, usamos o comando <strong>add</strong>. É literalmente dizer: "Git, pegue este arquivo e adicione na caixa para o próximo salvamento".</p>
+    <ul>
+        <li>Para adicionar um arquivo específico: <code>git add index.html</code></li>
+        <li>Para adicionar <strong>tudo</strong> que foi criado ou modificado de uma vez (o famoso "ponto"): <code>git add .</code></li>
+    </ul>
+    <p><em>Dica de ouro:</em> Se você rodar o <code>git status</code> novamente após o <strong>add</strong>, verá que o texto que era vermelho ficou verde! Isso significa que o arquivo já está na caixa, pronto para ser empacotado.</p>
+
+    <h3>Fechando e rotulando a caixa: <code>git commit</code></h3>
+    <p>Com os arquivos no Stage, chegou a hora de selar essa versão oficialmente. Chamamos esse salvamento de <strong>commit</strong>.</p>
+    <p>A regra número um de um bom desenvolvedor é <strong>nunca fechar uma caixa sem colar uma etiqueta nela</strong>. Essa etiqueta é a mensagem do commit, que explica para o seu "eu do futuro" (e para a sua equipe) exatamente o que foi alterado ali, sem que precisem abrir o código para descobrir.</p>
+    <p><strong>Comando:</strong> <em><code>git commit -m "Cria a estrutura inicial do index.html"</code></em></p>
+    <p>O <code>-m</code> significa "message" (mensagem). Pronto! Em vez de criar uma cópia física da sua pasta chamada <em>projeto_v1</em>, agora você tem um ponto na história do Git registrado de forma limpa, profissional e auditável.</p>
+</body>
+</html>
