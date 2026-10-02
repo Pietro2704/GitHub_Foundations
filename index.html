@@ -1,57 +1,254 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso de Git e GitHub - Primeiros Passos</title>
+    <title>Curso de Git — Primeiros Passos e Git Diff</title>
+    <style>
+        body {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.65;
+            color: #222;
+        }
+
+        h1,
+        h2,
+        h3 {
+            line-height: 1.25;
+        }
+
+        h1 {
+            margin-bottom: 0.25em;
+        }
+
+        code,
+        pre {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        code {
+            background: #f1f3f5;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        pre {
+            background: #f1f3f5;
+            padding: 14px;
+            overflow-x: auto;
+            border-radius: 6px;
+        }
+
+        .nota {
+            border-left: 4px solid #64748b;
+            padding: 10px 14px;
+            background: #f8fafc;
+        }
+
+        .alerta {
+            border-left: 4px solid #b45309;
+            padding: 10px 14px;
+            background: #fff7ed;
+        }
+
+        li {
+            margin-bottom: 0.35em;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Introdução ao Controle de Versão e ao Git</h1>
-    <p>Bem-vindo ao mundo do versionamento de código! Imagine o Git como uma "máquina do tempo" superpoderosa para os seus projetos. Em vez de criar pastas confusas como <em>projeto_final</em>, <em>projeto_final_agora_vai</em> e <em>projeto_final_v3</em>, o Git registra cada alteração que você faz no código de forma estruturada. Ele permite que você trabalhe em equipe sem sobrescrever o trabalho do colega, reverta erros com facilidade e mantenha um histórico limpo e profissional da evolução da sua aplicação.</p>
+    <p>Controle de versão é uma forma organizada de registrar a evolução de arquivos ao longo do tempo. Em um projeto de
+        programação, ele permite consultar alterações, identificar quando elas foram feitas e recuperar versões
+        anteriores quando necessário.</p>
+    <p>O Git é um sistema de controle de versão distribuído. Em vez de criar cópias manuais como <em>projeto_final</em>,
+        <em>projeto_final_agora_vai</em> e <em>projeto_final_v3</em>, o projeto mantém um histórico de registros
+        chamados <strong>commits</strong>. Esse histórico ajuda a entender o desenvolvimento e facilita a colaboração,
+        desde que as alterações sejam organizadas e revisadas corretamente.</p>
 
-    <h2>Instalando o Git</h2>
-    <p>Para começar nossa jornada, precisamos ter a ferramenta instalada na sua máquina. O processo é bem simples: baixe o instalador oficial de acordo com o seu sistema operacional. Durante a instalação no Windows, você pode deixar as dezenas de opções padrão marcadas (o famoso "Next, Next, Finish"). Elas são perfeitamente adequadas para quem está começando.</p>
-    <a href="https://git-scm.com/install/" target="_blank" rel="noopener noreferrer">Acessar página oficial de download do Git</a>
+    <h2>1. Instalando o Git</h2>
+    <p>O Git precisa estar instalado no computador para que os comandos estejam disponíveis no terminal. No Windows,
+        acesse a página oficial, baixe o instalador e siga as etapas. Para uma instalação inicial, as opções padrão
+        costumam ser suficientes.</p>
+    <p><a href="https://git-scm.com/install/" target="_blank" rel="noopener noreferrer">Acessar a página oficial de
+            instalação do Git</a></p>
+    <p>Depois da instalação, abra um terminal — por exemplo, o Terminal do VS Code, PowerShell ou Git Bash — e execute:
+    </p>
+    <pre><code>git --version</code></pre>
+    <p>Esse comando mostra a versão instalada. Se o terminal informar que o comando não foi encontrado, verifique a
+        instalação e abra um novo terminal.</p>
 
-    <h2>Configurando Nome e E-mail: A Sua Assinatura</h2>
-    <p>Antes de começarmos a salvar as versões do nosso código, o Git precisa saber <strong>quem</strong> está fazendo as alterações. Cada "salvamento" (que chamaremos de <em>commit</em>) leva uma assinatura digital.</p>
-    <p><strong>Qual nome e e-mail devo usar?</strong> Utilize seu nome profissional e, o mais importante, o <strong>mesmo e-mail que você usa (ou vai usar) para criar sua conta no GitHub</strong>. Isso é fundamental para que, no futuro, quando enviarmos nosso código para a nuvem, o GitHub consiga vincular o seu trabalho ao seu perfil público perfeitamente.</p>
-    <p>Abra o seu terminal e digite os comandos abaixo, substituindo pelos seus dados reais:</p>
+    <h2>2. Configurando nome e e-mail</h2>
+    <p>O Git registra um nome e um e-mail como autoria de cada commit. Configure esses dados antes de criar o primeiro
+        registro. Use o nome que deseja associar ao seu trabalho e, se quiser que os commits sejam associados ao seu
+        perfil do GitHub, utilize um e-mail verificado na conta ou o endereço privado fornecido pelo GitHub.</p>
+    <pre><code>git config --global user.name "Seu Nome Completo"
+git config --global user.email "seu.email@exemplo.com"</code></pre>
+    <p>Substitua os exemplos pelos seus dados reais. A opção <code>--global</code> aplica a configuração ao usuário do
+        computador, para os repositórios que não tenham uma configuração local diferente.</p>
+    <p>Para conferir o que ficou configurado, execute:</p>
+    <pre><code>git config --global user.name
+git config --global user.email</code></pre>
 
+    <h2>3. Criando um projeto e iniciando o repositório</h2>
+    <p>Crie uma pasta para o projeto e, dentro dela, crie um arquivo chamado <code>index.html</code>. Abra o terminal
+        nessa pasta. O terminal precisa estar no diretório correto para que os comandos atuem no projeto esperado.</p>
+    <p>Para conferir a pasta atual, no PowerShell use <code>pwd</code>. Em seguida, inicialize o repositório Git:</p>
+    <pre><code>git init</code></pre>
+    <p>Esse comando cria a estrutura interna do repositório, normalmente na pasta oculta <code>.git</code>. A partir
+        desse momento, o Git pode manter o histórico de versões dos arquivos desse projeto.</p>
+    <p class="nota"><strong>Atenção:</strong> <code>git init</code> não envia arquivos para a internet nem cria, por si
+        só, um repositório no GitHub. Ele inicializa um repositório local no computador.</p>
+
+    <h2>4. Consultando o estado do projeto: <code>git status</code></h2>
+    <p>O comando <code>git status</code> é uma das principais ferramentas de consulta. Ele informa em qual branch o
+        repositório está, quais arquivos ainda não são rastreados e quais arquivos têm alterações pendentes ou
+        preparadas para o próximo commit.</p>
+    <pre><code>git status</code></pre>
+    <p>Um arquivo recém-criado pode aparecer como <em>untracked</em> (não rastreado). Isso significa que o Git ainda não
+        o incluiu no controle de versão. Um arquivo rastreado que foi editado pode aparecer como modificado.</p>
+
+    <h2>5. A área de preparação: <em>Staging Area</em></h2>
+    <p>O Git separa as alterações em etapas. A <strong>área de preparação</strong>, também chamada de <em>stage</em> ou
+        <em>index</em>, permite selecionar o que entrará no próximo commit. Pense nela como uma caixa na qual são
+        colocadas as alterações que serão registradas juntas.</p>
+    <p>Para adicionar um arquivo específico à área de preparação:</p>
+    <pre><code>git add index.html</code></pre>
+    <p>Para adicionar arquivos novos e modificados do diretório atual e de seus subdiretórios:</p>
+    <pre><code>git add .</code></pre>
+    <p>Use <code>git status</code> novamente para conferir o resultado. Antes de usar <code>git add .</code>, verifique
+        quais arquivos foram modificados, para evitar preparar arquivos que não deveriam fazer parte do commit.</p>
+
+    <h2>6. Registrando uma versão: <code>git commit</code></h2>
+    <p>Um commit registra uma versão do conteúdo que está na área de preparação. A mensagem deve resumir a alteração de
+        forma clara e específica.</p>
+    <pre><code>git commit -m "Cria a estrutura inicial do index.html"</code></pre>
+    <p>A opção <code>-m</code> permite escrever a mensagem diretamente no comando. O commit registra o conteúdo
+        preparado naquele momento; salvar o arquivo no editor, por si só, não cria um commit.</p>
+    <p>Depois do commit, execute <code>git status</code>. Se não houver novas alterações, o Git normalmente informará
+        que a árvore de trabalho está limpa (<em>working tree clean</em>).</p>
+
+    <h2>7. Consultando o histórico: <code>git log</code></h2>
+    <p>O histórico registra os commits do repositório. Para consultar os detalhes, execute:</p>
+    <pre><code>git log</code></pre>
+    <p>Cada registro pode mostrar o identificador do commit, a autoria, a data e a mensagem. Para uma visualização
+        resumida, use:</p>
+    <pre><code>git log --oneline</code></pre>
+    <p>O identificador, chamado <strong>hash</strong>, é uma sequência de caracteres que identifica aquele commit. Ele
+        permite referenciar um registro específico do histórico.</p>
+
+    <h3>Como sair da visualização do histórico</h3>
+    <p>Em muitos terminais, <code>git log</code> abre um paginador: uma tela que permite ler a saída em partes. Para
+        sair e voltar ao prompt do terminal, pressione a tecla <kbd>q</kbd>. Isso encerra apenas a visualização; não
+        apaga nem modifica o histórico.</p>
+    <p>Dentro desse tipo de visualização, a barra de espaço avança uma página e as setas podem mover a leitura linha a
+        linha. Os atalhos podem variar conforme o paginador e o terminal utilizado.</p>
+
+    <h2>8. Entendendo <code>HEAD</code> e <code>main</code></h2>
+    <p>O <code>HEAD</code> é uma referência que indica a posição atual de trabalho no histórico. Em um repositório
+        simples, é comum ver algo como <code>HEAD -> main</code>: isso indica que o <code>HEAD</code> está apontando
+        para o commit atual da branch chamada <code>main</code>.</p>
+    <p>Uma <strong>branch</strong> é uma linha de desenvolvimento. <code>main</code> é um nome comum para a branch
+        principal, mas o nome pode variar de um projeto para outro. O texto exibido no terminal depende do estado atual
+        do repositório.</p>
+
+    <h2>9. Continuando o projeto: modificar o HTML</h2>
+    <p>Com o primeiro commit criado, a próxima etapa é fazer uma alteração real e comparar o estado atual do arquivo com
+        a última versão registrada. O objetivo é entender que o Git não apenas guarda versões: ele também permite
+        examinar exatamente o que mudou.</p>
     <ol>
-        <li><code>git config --global user.name "Seu Nome Completo"</code></li>
-        <li><code>git config --global user.email "seu.email@exemplo.com.br"</code></li>
+        <li>Abra o arquivo <code>index.html</code> no editor de código.</li>
+        <li>Altere o texto do elemento <code>&lt;title&gt;</code> para <code>Meu primeiro projeto com Git</code>.</li>
+        <li>Dentro do <code>&lt;body&gt;</code>, adicione um título e um parágrafo, por exemplo:</li>
     </ol>
+    <pre><code>&lt;h1&gt;Meu primeiro projeto com Git&lt;/h1&gt;
+&lt;p&gt;Esta página está sendo versionada com Git.&lt;/p&gt;</code></pre>
+    <p>Salve o arquivo no editor. Salvar o arquivo altera o conteúdo na pasta, mas ainda não cria um commit.</p>
+    <p>Agora consulte o estado do repositório:</p>
+    <pre><code>git status</code></pre>
+    <p>O arquivo <code>index.html</code> deverá aparecer como modificado, desde que já tenha sido incluído em um commit
+        anterior. Em seguida, visualize as diferenças:</p>
+    <pre><code>git diff</code></pre>
 
-    <h2>Colocando a Mão na Massa: Criando um Projeto</h2>
-    <p>Vamos para um cenário do mundo real: você foi contratado para criar uma nova página web e precisa garantir que todo o desenvolvimento front-end seja versionado com as melhores práticas da indústria desde a primeira linha de código.</p>
-
-    <h3>Iniciando a Pasta do Projeto</h3>
-    <p>O primeiro passo é criar uma pasta comum no seu computador para abrigar o projeto. Dentro dela, crie um arquivo chamado <code>index.html</code> (pode deixá-lo vazio por enquanto). Agora, abra o terminal apontando para dentro dessa pasta.</p>
-    <p>Para transformar essa pasta comum em um repositório Git (ou seja, ligar o "radar" do Git nela), utilizamos nosso primeiro comando oficial. Ele criará uma estrutura oculta (a pasta <em>.git</em>) que passará a monitorar todas as suas edições:</p>
-    <p><strong>Comando:</strong> <em><code>git init</code></em></p>
-
-    <h2>O Radar do Git: <code>git status</code></h2>
-    <p>Com o nosso repositório criado, você precisa conhecer uma ferramenta que será sua melhor amiga: o comando <strong>status</strong>. Pense nele como o "radar" ou a "lupa" do Git. Sempre que você estiver em dúvida sobre o que foi alterado, o que já está salvo ou o que falta salvar, basta perguntar ao radar.</p>
-    <p><strong>Comando:</strong> <em><code>git status</code></em></p>
-    <p>Se você rodar esse comando agora, o Git vai avisar (geralmente em texto vermelho) que encontrou o arquivo <code>index.html</code>, mas que ainda não está rastreando as mudanças dele. Para mudar isso, precisamos entender um conceito fundamental.</p>
-
-    <h2>A Zona de Preparação (O famoso "Stage")</h2>
-    <p>Diferente de salvar um arquivo no Word, o Git não salva tudo de uma vez automaticamente. Ele usa uma área intermediária chamada <strong>Staging Area</strong> (ou simplesmente Stage). Pense no Stage como uma <em>caixa de papelão aberta</em> em cima da sua mesa.</p>
-    <p>Você pode ir colocando os arquivos que alterou dentro dessa caixa aos poucos, organizando o que faz sentido ser salvo junto. O Git só vai registrar definitivamente na "máquina do tempo" os arquivos que estiverem dentro dessa caixa no momento em que você decidir fechá-la.</p>
-
-    <h3>Colocando arquivos na caixa: <code>git add</code></h3>
-    <p>Para avisar o Git que você quer colocar o nosso novo arquivo na zona de preparação, usamos o comando <strong>add</strong>. É literalmente dizer: "Git, pegue este arquivo e adicione na caixa para o próximo salvamento".</p>
+    <h2>10. Lendo a saída de <code>git diff</code></h2>
+    <p>O comando <code>git diff</code>, sem opções adicionais, mostra as diferenças entre as alterações atuais ainda não
+        preparadas e a versão que está na área de preparação. Se as alterações ainda não foram preparadas com
+        <code>git add</code>, o comando normalmente mostra o que mudou em relação ao conteúdo preparado — que, nesse
+        caso, corresponde ao último commit.</p>
+    <p>Na saída do <code>git diff</code>, observe os sinais no início das linhas:</p>
     <ul>
-        <li>Para adicionar um arquivo específico: <code>git add index.html</code></li>
-        <li>Para adicionar <strong>tudo</strong> que foi criado ou modificado de uma vez (o famoso "ponto"): <code>git add .</code></li>
+        <li><code>-</code> indica uma linha removida da versão comparada.</li>
+        <li><code>+</code> indica uma linha adicionada na versão comparada.</li>
+        <li>Linhas sem esses sinais podem aparecer como contexto, para ajudar a localizar a mudança.</li>
     </ul>
-    <p><em>Dica de ouro:</em> Se você rodar o <code>git status</code> novamente após o <strong>add</strong>, verá que o texto que era vermelho ficou verde! Isso significa que o arquivo já está na caixa, pronto para ser empacotado.</p>
+    <p>O cabeçalho de cada bloco também informa o arquivo comparado e a região aproximada em que ocorreram as mudanças.
+        O Git mostra diferenças de conteúdo; ele não explica automaticamente a intenção da alteração.</p>
 
-    <h3>Fechando e rotulando a caixa: <code>git commit</code></h3>
-    <p>Com os arquivos no Stage, chegou a hora de selar essa versão oficialmente. Chamamos esse salvamento de <strong>commit</strong>.</p>
-    <p>A regra número um de um bom desenvolvedor é <strong>nunca fechar uma caixa sem colar uma etiqueta nela</strong>. Essa etiqueta é a mensagem do commit, que explica para o seu "eu do futuro" (e para a sua equipe) exatamente o que foi alterado ali, sem que precisem abrir o código para descobrir.</p>
-    <p><strong>Comando:</strong> <em><code>git commit -m "Cria a estrutura inicial do index.html"</code></em></p>
-    <p>O <code>-m</code> significa "message" (mensagem). Pronto! Em vez de criar uma cópia física da sua pasta chamada <em>projeto_v1</em>, agora você tem um ponto na história do Git registrado de forma limpa, profissional e auditável.</p>
+    <h3>Como sair da tela do <code>git diff</code></h3>
+    <p>Quando a saída é longa, o Git pode abri-la em um paginador, em vez de devolver imediatamente o prompt. Para sair
+        dessa tela e retornar ao terminal, pressione <kbd>q</kbd>. Isso apenas fecha a visualização; não desfaz
+        alterações nem encerra o Git.</p>
+    <p>Atalhos comuns do paginador:</p>
+    <ul>
+        <li><kbd>q</kbd>: sair da visualização.</li>
+        <li><kbd>Espaço</kbd>: avançar uma página.</li>
+        <li><kbd>b</kbd>: voltar uma página, quando suportado.</li>
+        <li><kbd>↑</kbd> e <kbd>↓</kbd>: mover a leitura linha a linha, quando suportado.</li>
+    </ul>
+
+    <h3>Como visualizar a saída inteira sem abrir o paginador</h3>
+    <p>Para imprimir a saída diretamente no terminal, sem o paginador configurado pelo Git, use:</p>
+    <pre><code>git --no-pager diff</code></pre>
+    <p>O terminal exibirá a saída contínua. Se houver muitas linhas, parte do conteúdo pode ficar acima da área visível;
+        role para cima no terminal para consultar o que já foi impresso. Em terminais integrados, a quantidade de
+        histórico disponível depende das configurações de rolagem.</p>
+    <p>Para conferir as alterações que já foram preparadas com <code>git add</code>, use:</p>
+    <pre><code>git diff --staged</code></pre>
+    <p>Para comparar todas as alterações em arquivos rastreados com o último commit — incluindo as alterações preparadas
+        e as ainda não preparadas — use:</p>
+    <pre><code>git diff HEAD</code></pre>
+    <p class="nota"><strong>Importante:</strong> arquivos novos que ainda não foram rastreados normalmente não aparecem
+        no <code>git diff</code>. Para que o Git passe a comparar um arquivo novo, primeiro adicione-o à área de
+        preparação com <code>git add nome-do-arquivo</code>. Isso não cria um commit; apenas prepara o arquivo.</p>
+
+    <h2>11. Revisar antes de registrar</h2>
+    <p>Antes de criar um novo commit, confira o estado e leia as diferenças. Essa revisão ajuda a detectar texto
+        removido por engano, alterações incompletas e arquivos que não deveriam entrar no registro.</p>
+    <pre><code>git status
+git diff</code></pre>
+    <p>Se as alterações estiverem corretas, prepare o arquivo:</p>
+    <pre><code>git add index.html</code></pre>
+    <p>Confira o que foi preparado:</p>
+    <pre><code>git diff --staged</code></pre>
+    <p>Se o conteúdo preparado estiver correto, crie o próximo commit:</p>
+    <pre><code>git commit -m "Atualiza o conteúdo inicial da página"</code></pre>
+    <p>Por fim, confira o estado e o histórico:</p>
+    <pre><code>git status
+git log --oneline</code></pre>
+
+    <h2>12. Resumo dos comandos apresentados</h2>
+    <ul>
+        <li><code>git --version</code>: verifica a versão instalada do Git.</li>
+        <li><code>git config --global</code>: configura dados padrão de autoria.</li>
+        <li><code>git init</code>: inicializa um repositório local.</li>
+        <li><code>git status</code>: mostra o estado atual dos arquivos e da área de preparação.</li>
+        <li><code>git add</code>: prepara arquivos para o próximo commit.</li>
+        <li><code>git commit -m "mensagem"</code>: registra as alterações preparadas.</li>
+        <li><code>git log</code> e <code>git log --oneline</code>: consultam o histórico.</li>
+        <li><code>git diff</code>: mostra alterações ainda não preparadas.</li>
+        <li><code>git diff --staged</code>: mostra alterações preparadas.</li>
+        <li><code>git diff HEAD</code>: compara alterações em arquivos rastreados com o último commit.</li>
+        <li><code>git --no-pager diff</code>: mostra a saída do diff sem abrir o paginador.</li>
+    </ul>
+    <p>O fluxo praticado nesta etapa é: editar os arquivos, conferir com <code>git status</code>, examinar as mudanças
+        com <code>git diff</code>, preparar o que deve ser registrado, revisar com <code>git diff --staged</code> e
+        então criar o commit. Esse processo torna o histórico mais compreensível e reduz o risco de registrar alterações
+        indesejadas.</p>
 </body>
+
 </html>
