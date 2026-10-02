@@ -289,13 +289,15 @@ Abra o arquivo index.html em um navegador.</code></pre>
 
     <h3>Exercício: ignorando o README para observar o comportamento do Git</h3>
     <p>Para demonstrar como as regras funcionam, adicione temporariamente a seguinte linha ao arquivo
-        <code>.gitignore</code>:</p>
+        <code>.gitignore</code>:
+    </p>
     <pre><code>README.md</code></pre>
     <p>Essa regra pede ao Git para ignorar um arquivo com esse nome. Salve o <code>.gitignore</code> e execute:</p>
     <pre><code>git status</code></pre>
     <p>Observe que o <code>README.md</code> pode não aparecer como arquivo não rastreado, enquanto o
         <code>.gitignore</code> deverá aparecer como novo arquivo. Para confirmar qual regra está fazendo o Git ignorar
-        o README, execute:</p>
+        o README, execute:
+    </p>
     <pre><code>git check-ignore -v README.md</code></pre>
     <p>O comando apresenta o arquivo de regras e a linha responsável por ignorar o README.</p>
 
@@ -325,11 +327,13 @@ venv/
     <h3>Removendo a regra de demonstração</h3>
     <p>Como queremos manter a documentação no histórico deste projeto, abra o <code>.gitignore</code> e remova a linha
         <code>README.md</code>. Você pode manter as outras regras que fizerem sentido para o projeto. Salve o arquivo e
-        execute novamente:</p>
+        execute novamente:
+    </p>
     <pre><code>git status</code></pre>
     <p>Agora o <code>README.md</code> deverá aparecer como arquivo não rastreado, desde que ainda não tenha sido
         adicionado a um commit. Se ele continuar ignorado, confira se existe outra regra aplicável no próprio
-        <code>.gitignore</code>, em regras globais ou em outro arquivo de exclusão.</p>
+        <code>.gitignore</code>, em regras globais ou em outro arquivo de exclusão.
+    </p>
 
     <h2>15. Preparando e registrando os novos arquivos</h2>
     <p>Antes de preparar os arquivos, confira o estado do repositório. Depois, adicione o README e o .gitignore à área
@@ -350,7 +354,6 @@ git log --oneline</code></pre>
     <p>O objetivo desta etapa é praticar a documentação do projeto, compreender como o Git ignora arquivos e revisar as
         alterações antes de registrá-las. O README normalmente deve ser versionado; o .gitignore serve para evitar que
         arquivos que não devem fazer parte do histórico sejam adicionados por engano.</p>
-
 </body>
 
 </html>
